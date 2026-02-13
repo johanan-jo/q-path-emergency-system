@@ -601,8 +601,8 @@ def run_demo():
 @app.route('/api/chatbot', methods=['POST'])
 def chatbot():
     """
-    Chatbot endpoint for emergency assistance queries.
-    Accepts a message and returns AI-generated response.
+    Chatbot endpoint using Cerebras LLM API.
+    Accepts a message and returns response from external gpt-oss-120b model.
     """
     if not llm:
         return jsonify({
