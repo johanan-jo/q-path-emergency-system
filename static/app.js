@@ -272,16 +272,10 @@ function updateMarkerSizes() {
         const marker = markers[id];
         const entity = marker._entity; // We'll store entity data on the marker
         if (entity) {
-            let iconHtml;
-            if (entity.type === 'victim') {
-                iconHtml = `<img src="victim-icon.png" style="width: ${iconSize}px; height: ${iconSize}px;" />`;
-            } else {
-                const icon = getEntityIcon(entity.type);
-                iconHtml = `<span style="font-size: ${fontSize}px;">${icon}</span>`;
-            }
+            const icon = getEntityIcon(entity.type);
             marker.setIcon(L.divIcon({
                 className: 'entity-marker',
-                html: iconHtml,
+                html: `<span style="font-size: ${fontSize}px;">${icon}</span>`,
                 iconSize: [iconSize, iconSize]
             }));
         }
@@ -290,21 +284,13 @@ function updateMarkerSizes() {
 
 // Add marker for entity
 function addEntityMarker(entity) {
+    const icon = getEntityIcon(entity.type);
     const iconSize = getIconSizeForZoom();
     const fontSize = Math.floor(iconSize * 0.8); // 80% of icon size for font
-    
-    let iconHtml;
-    if (entity.type === 'victim') {
-        iconHtml = `<img src="victim-icon.png" style="width: ${iconSize}px; height: ${iconSize}px;" />`;
-    } else {
-        const icon = getEntityIcon(entity.type);
-        iconHtml = `<span style="font-size: ${fontSize}px;">${icon}</span>`;
-    }
-    
     const marker = L.marker([entity.location.lat, entity.location.lon], {
         icon: L.divIcon({
             className: 'entity-marker',
-            html: iconHtml,
+            html: `<span style="font-size: ${fontSize}px;">${icon}</span>`,
             iconSize: [iconSize, iconSize]
         })
     });
@@ -337,7 +323,7 @@ function getEntityIcon(type) {
         'lifeguard': '🏊',
         'ngo': '🏢',
         'ambulance': '🚑',
-        'victim': '🆘'
+        'victim': '⚠️'
     };
     return icons[type.toLowerCase()] || '📍';
 }

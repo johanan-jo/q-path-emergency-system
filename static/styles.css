@@ -625,12 +625,6 @@ body {
     transition: all 0.2s ease;
 }
 
-.entity-marker img {
-    display: block;
-    transition: all 0.2s ease;
-    object-fit: contain;
-}
-
 /* Allocation Item Details */
 .allocation-info {
     display: flex;
