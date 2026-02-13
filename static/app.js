@@ -896,24 +896,8 @@ async function runDemo() {
         // Reload entities
         await loadEntities();
         
-        // Create fake route data for demo
-        const demoRoutes = [{
-            route: data.quantum.route,
-            cost: data.quantum.cost,
-            resource: data.quantum.route[0]
-        }];
-        
-        // Get victims for assignments
-        const victims = data.victims || [];
-        const assignments = victims.map((victim, idx) => ({
-            resource_id: data.quantum.route[0],
-            resource_name: 'Demo Resource',
-            resource_type: 'ambulance',
-            victim_id: victim.id,
-            victim_name: victim.name,
-            resource_location: {lat: 28.6139, lon: 77.2090},
-            victim_location: victim.location
-        }));
+        // Use actual assignments from backend
+        const assignments = data.assignments || [];
         
         // Display results
         displayOptimizationResults({
@@ -927,7 +911,7 @@ async function runDemo() {
                 method: data.quantum.method || 'QAOA',
                 total_cost: data.quantum.cost,
                 cost: data.quantum.cost,
-                routes: demoRoutes
+                routes: [{route: data.quantum.route, cost: data.quantum.cost}]
             },
             comparison: {
                 classical_cost: data.classical.cost,
@@ -936,9 +920,14 @@ async function runDemo() {
             }
         });
         
-        // Draw route with actual road routing
-        if (demoRoutes.length > 0) {
-            await drawRoutedPaths(demoRoutes, assignments);
+        // Draw actual assigned routes (resource → victim → hospital)
+        if (assignments.length > 0) {
+            for (const assignment of assignments) {
+                await drawRealRoutes(assignment);
+            }
+            updateStatus(`Demo complete! ${assignments.length} emergency response(s) activated with hospital routing.`);
+        } else {
+            updateStatus('Demo complete! Optimization results displayed.');
         }
         
         // Show comparison

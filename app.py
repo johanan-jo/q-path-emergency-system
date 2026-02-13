@@ -556,7 +556,16 @@ def run_demo():
     graph.update_traffic()
     graph.update_weather()
     
-    # Run optimization
+    # Auto-assign resources to each victim
+    assignments = []
+    emergency_types = ['medical', 'medical', 'accident']  # Demo emergency types
+    for i, victim in enumerate(victims):
+        assignment = auto_assign_resources(victim, emergency_types[i])
+        if assignment:
+            assignments.append(assignment)
+            latest_assignments[victim.id] = assignment
+    
+    # Run optimization for comparison
     hospitals = entity_db.get_by_type(EntityType.HOSPITAL)
     start_node = hospitals[0].id if hospitals else None
     target_nodes = [v.id for v in victims]
@@ -575,6 +584,7 @@ def run_demo():
     
     return jsonify({
         'victims': [v.to_dict() for v in victims],
+        'assignments': assignments,
         'classical': {
             'route': route_classical,
             'cost': cost_classical,
