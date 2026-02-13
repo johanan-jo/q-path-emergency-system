@@ -871,6 +871,10 @@ body.dark-mode .metrics-section {
     border-color: #444;
 }
 
+body.dark-mode .metrics-section h2 {
+    color: #fff;
+}
+
 body.dark-mode .entity-card {
     background: #3a3a3a;
     border-color: #555;
