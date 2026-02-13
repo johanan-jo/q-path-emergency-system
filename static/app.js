@@ -68,6 +68,12 @@ function initializeMap() {
                 }).addTo(map);
             }
         });
+        
+        // Add zoom event listener for responsive icon sizing
+        map.on('zoomend', () => {
+            updateMarkerSizes();
+        });
+        
         console.log('Map initialization complete'); // Debug
     } catch(error) {
         console.error('Map initialization error:', error); // Debug
@@ -247,16 +253,50 @@ async function loadEntities() {
     }
 }
 
+// Calculate icon size based on zoom level
+function getIconSizeForZoom() {
+    const zoom = map.getZoom();
+    // Scale: zoom 8-10: 20px, zoom 11-12: 35px, zoom 13-14: 45px, zoom 15+: 55px
+    if (zoom <= 9) return 20;
+    if (zoom <= 11) return 30;
+    if (zoom <= 13) return 40;
+    if (zoom <= 15) return 50;
+    return 60;
+}
+
+// Update all marker sizes based on current zoom
+function updateMarkerSizes() {
+    const iconSize = getIconSizeForZoom();
+    const fontSize = Math.floor(iconSize * 0.8); // 80% of icon size for font
+    Object.keys(markers).forEach(id => {
+        const marker = markers[id];
+        const entity = marker._entity; // We'll store entity data on the marker
+        if (entity) {
+            const icon = getEntityIcon(entity.type);
+            marker.setIcon(L.divIcon({
+                className: 'entity-marker',
+                html: `<span style="font-size: ${fontSize}px;">${icon}</span>`,
+                iconSize: [iconSize, iconSize]
+            }));
+        }
+    });
+}
+
 // Add marker for entity
 function addEntityMarker(entity) {
     const icon = getEntityIcon(entity.type);
+    const iconSize = getIconSizeForZoom();
+    const fontSize = Math.floor(iconSize * 0.8); // 80% of icon size for font
     const marker = L.marker([entity.location.lat, entity.location.lon], {
         icon: L.divIcon({
             className: 'entity-marker',
-            html: icon,
-            iconSize: [45, 45]
+            html: `<span style="font-size: ${fontSize}px;">${icon}</span>`,
+            iconSize: [iconSize, iconSize]
         })
     });
+    
+    // Store entity data on marker for later updates
+    marker._entity = entity;
     
     // Popup with entity details
     const popupContent = `
