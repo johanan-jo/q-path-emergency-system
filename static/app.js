@@ -254,7 +254,7 @@ function addEntityMarker(entity) {
         icon: L.divIcon({
             className: 'entity-marker',
             html: icon,
-            iconSize: [30, 30]
+            iconSize: [45, 45]
         })
     });
     

@@ -603,6 +603,23 @@ body {
     display: none;
 }
 
+/* Entity Marker Styling */
+.entity-marker {
+    background: transparent !important;
+    border: none !important;
+    font-size: 36px;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    transition: transform 0.2s ease;
+}
+
+.entity-marker:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.4));
+}
+
 /* Allocation Item Details */
 .allocation-info {
     display: flex;
