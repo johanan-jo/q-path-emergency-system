@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Path: Emergency Response Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            color: white;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .header {
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .option-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .option-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+        }
+
+        .option-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .option-card h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .option-card p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .option-card.incident {
+            border-top: 5px solid #e74c3c;
+        }
+
+        .option-card.volunteer {
+            border-top: 5px solid #27ae60;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .options-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔬 Q-Path</h1>
+            <p>Quantum-Inspired Emergency Response System</p>
+            <p style="font-size: 1rem; margin-top: 10px; opacity: 0.8;">Chennai Emergency Services</p>
+        </div>
+
+        <div class="options-container">
+            <a href="/incident" class="option-card incident">
+                <div class="option-icon">🆘</div>
+                <h2>Report Incident</h2>
+                <p>Are you in an emergency? Report an incident and request immediate assistance from emergency services.</p>
+            </a>
+
+            <a href="/volunteer" class="option-card volunteer">
+                <div class="option-icon">👨‍⚕️</div>
+                <h2>Volunteer Portal</h2>
+                <p>Emergency responders and coordinators: Access the dashboard to manage and optimize emergency response operations.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

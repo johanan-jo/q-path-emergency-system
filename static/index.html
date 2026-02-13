@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Path: Quantum Emergency Response Hub</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <h1>🔬 Q-Path - Chennai</h1>
+                <p>Volunteer Emergency Response Dashboard</p>
+            </div>
+            <div class="header-controls">
+                <button class="btn btn-primary" onclick="runDemo()">▶️ Run Demo</button>
+                <button class="btn btn-secondary" onclick="resetSystem()">🔄 Reset</button>
+                <button class="btn btn-secondary" onclick="logout()">🚪 Logout</button>
+            </div>
+        </header>
+
+        <!-- Main Dashboard -->
+        <div class="dashboard">
+            <!-- Left Panel: Map & Controls -->
+            <div class="panel map-panel">
+                <div class="panel-header">
+                    <h2>🗺️ Emergency Response Map</h2>
+                    <div class="controls-inline">
+                        <select id="viewMode" onchange="updateViewMode()">
+                            <option value="infrastructure">Infrastructure View</option>
+                            <option value="citizen">Citizen Request View</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="map" class="map-container"></div>
+                
+                <!-- Emergency Request Button -->
+                <div class="emergency-request" id="emergencyPanel" style="display: none;">
+                    <h3>🆘 Emergency Request</h3>
+                    <p>Click on map to add your location</p>
+                    <div class="form-group">
+                        <label>Severity:</label>
+                        <select id="severity">
+                            <option value="critical">Critical</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-danger btn-block" onclick="requestHelp()">Request Emergency Help</button>
+                </div>
+
+                <!-- Infrastructure Controls -->
+                <div class="infrastructure-controls" id="infrastructurePanel">
+                    <h3>⚙️ Simulation Controls</h3>
+                    <div class="form-group">
+                        <label>Traffic Conditions:</label>
+                        <select id="traffic" onchange="updateConditions()">
+                            <option value="low">Low Traffic</option>
+                            <option value="medium">Medium Traffic</option>
+                            <option value="high">Heavy Traffic</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Weather:</label>
+                        <select id="weather" onchange="updateConditions()">
+                            <option value="clear">Clear</option>
+                            <option value="rain">Rain</option>
+                            <option value="storm">Storm</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-block" onclick="addRandomVictim()">+ Add Random Victim</button>
+                    <button class="btn btn-success btn-block" onclick="optimizeRoutes()">🚀 Optimize Routes</button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Metrics & Results -->
+            <div class="panel metrics-panel">
+                <!-- Entity Summary -->
+                <div class="metrics-section">
+                    <h2>📊 Entity Summary</h2>
+                    <div class="entity-grid" id="entitySummary">
+                        <div class="entity-card">
+                            <div class="entity-icon">🏥</div>
+                            <div class="entity-count" id="hospitalCount">0</div>
+                            <div class="entity-label">Hospitals</div>
+                        </div>
+                        <div class="entity-card">
+                            <div class="entity-icon">🚒</div>
+                            <div class="entity-count" id="fireCount">0</div>
+                            <div class="entity-label">Fire Stations</div>
+                        </div>
+                        <div class="entity-card">
+                            <div class="entity-icon">🏢</div>
+                            <div class="entity-count" id="ngoCount">0</div>
+                            <div class="entity-label">NGOs</div>
+                        </div>
+                        <div class="entity-card">
+                            <div class="entity-icon">🚑</div>
+                            <div class="entity-count" id="ambulanceCount">0</div>
+                            <div class="entity-label">Ambulances</div>
+                        </div>
+                        <div class="entity-card highlight">
+                            <div class="entity-icon">🆘</div>
+                            <div class="entity-count" id="victimCount">0</div>
+                            <div class="entity-label">Victims</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Optimization Results -->
+                <div class="metrics-section">
+                    <h2>🎯 Optimization Results</h2>
+                    <div id="optimizationResults" class="results-container">
+                        <p class="placeholder">Run optimization to see results...</p>
+                    </div>
+                </div>
+
+                <!-- Resource Allocation -->
+                <div class="metrics-section">
+                    <h2>📦 Resource Allocation</h2>
+                    <div id="resourceAllocation" class="allocation-container">
+                        <p class="placeholder">No allocation yet...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span id="status">Ready</span>
+            <span id="graphStats"></span>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
