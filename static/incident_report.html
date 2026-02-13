@@ -14,9 +14,65 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: #f5f5f5;
             min-height: 100vh;
             padding: 20px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .container {
+            background: #2d2d2d;
+        }
+
+        body.dark-mode .header {
+            background: #333;
+        }
+
+        body.dark-mode .form-section {
+            background: #383838;
+        }
+
+        body.dark-mode .form-group input,
+        body.dark-mode .form-group select,
+        body.dark-mode .form-group textarea {
+            background: #2d2d2d;
+            color: #e0e0e0;
+            border-color: #555;
+        }
+
+        body.dark-mode .severity-option {
+            background: #2d2d2d;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .tab {
+            background: #383838;
+            color: #ccc;
+        }
+
+        body.dark-mode .tab.active {
+            background: #2d2d2d;
+            color: #00d9ff;
+        }
+
+        body.dark-mode .chatbot-window {
+            background: #2d2d2d;
+        }
+
+        body.dark-mode .chatbot-messages {
+            background: #383838;
+        }
+
+        body.dark-mode .chat-message.bot .chat-bubble {
+            background: #444;
+            border-color: #555;
+            color: #e0e0e0;
         }
 
         .container {
@@ -29,10 +85,30 @@
         }
 
         .header {
-            background: #e74c3c;
+            background: #dc3545;
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
+        }
+
+        .dark-mode-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.15);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background: rgba(255,255,255,0.25);
         }
 
         .header h1 {
@@ -372,7 +448,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: #dc3545;
             color: white;
             border: none;
             font-size: 28px;
@@ -410,7 +486,7 @@
         }
 
         .chatbot-header {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: #dc3545;
             color: white;
             padding: 20px;
             display: flex;
@@ -479,7 +555,7 @@
         }
 
         .chat-message.user .chat-bubble {
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: #dc3545;
             color: white;
             border-bottom-right-radius: 5px;
         }
@@ -522,7 +598,7 @@
             width: 45px;
             height: 45px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            background: #dc3545;
             color: white;
             border: none;
             font-size: 20px;
@@ -594,7 +670,8 @@
     
     <div class="container">
         <div class="header">
-            <h1>🆘 Report Emergency</h1>
+            <h1>Report Emergency</h1>
+            <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
             <p>Help is on the way. Please provide your location and details.</p>
         </div>
 
@@ -605,7 +682,7 @@
 
             <!-- Tab Navigation -->
             <div class="tabs">
-                <button class="tab active" onclick="switchTab('report')">🆘 Report Incident</button>
+                <button class="tab active" onclick="switchTab('report')">Report Incident</button>
                 <button class="tab" onclick="switchTab('recent')">📋 My Recent Incidents</button>
             </div>
 
@@ -699,7 +776,7 @@
     <div class="chatbot-window" id="chatbotWindow">
         <div class="chatbot-header">
             <div>
-                <h3>🤖 Caramel AI</h3>
+                <h3>Caramel AI</h3>
                 <p>Ineme naaanga dhan!</p>
             </div>
             <button class="chatbot-close" onclick="toggleChatbot()">×</button>
@@ -1104,6 +1181,25 @@
             // Scroll to bottom
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
+
+        // Dark Mode Toggle
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            event.target.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+        }
+
+        // Load dark mode preference
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                const toggleBtn = document.querySelector('.dark-mode-toggle');
+                if (toggleBtn) {
+                    toggleBtn.textContent = '☀️ Light Mode';
+                }
+            }
+        });
     </script>
 </body>
 </html>

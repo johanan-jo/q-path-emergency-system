@@ -13,10 +13,14 @@
         <!-- Header -->
         <header class="header">
             <div class="logo">
-                <h1>🔬 Q-Path - Chennai</h1>
+                <h1>Q-Path - Chennai</h1>
                 <p>Volunteer Emergency Response Dashboard</p>
             </div>
             <div class="header-controls">
+                <button class="dark-mode-toggle" onclick="toggleDarkMode()">
+                    <span id="darkModeIcon">🌙</span>
+                    <span id="darkModeText">Dark Mode</span>
+                </button>
                 <button class="btn btn-primary" onclick="runDemo()">▶️ Run Demo</button>
                 <button class="btn btn-secondary" onclick="resetSystem()">🔄 Reset</button>
                 <button class="btn btn-secondary" onclick="logout()">🚪 Logout</button>
@@ -28,7 +32,7 @@
             <!-- Left Panel: Map & Controls -->
             <div class="panel map-panel">
                 <div class="panel-header">
-                    <h2>🗺️ Emergency Response Map</h2>
+                    <h2>Emergency Response Map</h2>
                     <div class="controls-inline">
                         <select id="viewMode" onchange="updateViewMode()">
                             <option value="infrastructure">Infrastructure View</option>
@@ -40,7 +44,7 @@
                 
                 <!-- Emergency Request Button -->
                 <div class="emergency-request" id="emergencyPanel" style="display: none;">
-                    <h3>🆘 Emergency Request</h3>
+                    <h3>Emergency Request</h3>
                     <p>Click on map to add your location</p>
                     <div class="form-group">
                         <label>Severity:</label>
@@ -55,7 +59,7 @@
 
                 <!-- Infrastructure Controls -->
                 <div class="infrastructure-controls" id="infrastructurePanel">
-                    <h3>⚙️ Simulation Controls</h3>
+                    <h3>Simulation Controls</h3>
                     <div class="form-group">
                         <label>Traffic Conditions:</label>
                         <select id="traffic" onchange="updateConditions()">
@@ -81,7 +85,7 @@
             <div class="panel metrics-panel">
                 <!-- Entity Summary -->
                 <div class="metrics-section">
-                    <h2>📊 Entity Summary</h2>
+                    <h2>Entity Summary</h2>
                     <div class="entity-grid" id="entitySummary">
                         <div class="entity-card">
                             <div class="entity-icon">🏥</div>
@@ -113,7 +117,7 @@
 
                 <!-- Optimization Results -->
                 <div class="metrics-section">
-                    <h2>🎯 Optimization Results</h2>
+                    <h2>Optimization Results</h2>
                     <div id="optimizationResults" class="results-container">
                         <p class="placeholder">Run optimization to see results...</p>
                     </div>
@@ -121,7 +125,7 @@
 
                 <!-- Resource Allocation -->
                 <div class="metrics-section">
-                    <h2>📦 Resource Allocation</h2>
+                    <h2>Resource Allocation</h2>
                     <div id="resourceAllocation" class="allocation-container">
                         <p class="placeholder">No allocation yet...</p>
                     </div>
@@ -140,6 +144,35 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script>
+        // Dark mode toggle functionality
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            const icon = document.getElementById('darkModeIcon');
+            const text = document.getElementById('darkModeText');
+            if (isDark) {
+                icon.textContent = '☀️';
+                text.textContent = 'Light Mode';
+            } else {
+                icon.textContent = '🌙';
+                text.textContent = 'Dark Mode';
+            }
+        }
+        
+        // Load saved dark mode preference
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            const icon = document.getElementById('darkModeIcon');
+            const text = document.getElementById('darkModeText');
+            if (icon && text) {
+                icon.textContent = '☀️';
+                text.textContent = 'Light Mode';
+            }
+        }
+    </script>
     <script src="app.js"></script>
 </body>
 </html>
