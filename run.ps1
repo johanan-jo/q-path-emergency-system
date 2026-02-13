@@ -9,7 +9,7 @@ Write-Host ""
 Write-Host "  Dashboard:    http://localhost:5000" -ForegroundColor White
 Write-Host "  Report Page:  http://localhost:5000/incident_report.html" -ForegroundColor White
 Write-Host ""
-Write-Host "Chatbot powered by Caramel AI is ready!" -ForegroundColor Magenta
+Write-Host "Chatbot powered by Cura AI is ready!" -ForegroundColor Magenta
 Write-Host "Press Ctrl+C to stop the server" -ForegroundColor Yellow
 Write-Host "================================================" -ForegroundColor Cyan
 Write-Host ""

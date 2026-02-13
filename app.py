@@ -621,7 +621,7 @@ def chatbot():
             }), 400
         
         # Add context about the emergency response system
-        system_context = """You are Caramel AI, an emergency response assistant for Q-Path Emergency Response Hub. 
+        system_context = """You are Cura AI, an emergency response assistant for Q-Path Emergency Response Hub. 
 Give SHORT, DIRECT answers (2-4 sentences max). NO tables, NO markdown formatting, NO lengthy explanations.
 For emergencies: State the action, then say "Call emergency services immediately."
 For first-aid: Give 3-5 bullet points maximum.
